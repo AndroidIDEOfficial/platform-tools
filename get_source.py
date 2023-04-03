@@ -85,7 +85,7 @@ def patches():
                  Path("src/adb/fastdeploy/deployagent"))
     shutil.copy2(Path("patches/misc/selabel_handle_utils.h"),
                  Path("src/selinux/libselinux/src"))
-    shutil.copy2(Path("patches/misc/selabel_handle_utils.cpp"),
+    shutil.copy2(Path("patches/misc/selabel_handle_utils.c"),
                  Path("src/selinux/libselinux/src"))
 
     shutil.copy2(Path("patches/misc/platform_tools_version.h"),
