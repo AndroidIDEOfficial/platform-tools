@@ -1,6 +1,8 @@
---- a/art/libdexfile/dex/dex_file.cc	2021-09-20 08:30:55.735009084 +0800
-+++ b/art/libdexfile/dex/dex_file.cc	2021-09-20 08:18:40.434577208 +0800
-@@ -600,6 +600,31 @@
+diff --git a/src/art/libdexfile/dex/dex_file.cc b/src/art/libdexfile/dex/dex_file.cc
+index 6ebb5b8..9df8d7f 100644
+--- a/src/art/libdexfile/dex/dex_file.cc
++++ b/src/art/libdexfile/dex/dex_file.cc
+@@ -602,6 +602,31 @@ dex::ProtoIndex DexFile::GetProtoIndexForCallSite(uint32_t call_site_idx) const
    return dex::ProtoIndex(it.GetJavaValue().i);
  }
  

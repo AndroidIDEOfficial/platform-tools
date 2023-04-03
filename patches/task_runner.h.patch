@@ -1,18 +1,22 @@
---- b/src/openscreen/platform/api/task_runner.h	2022-04-25 20:53:09.743134193 +0800
-+++ b/src/openscreen/platform/api/task_runner.h	2022-04-24 19:14:39.817271748 +0800
-@@ -24,13 +24,14 @@
+diff --git a/platform/api/task_runner.h b/platform/api/task_runner.h
+index 948eb08..3673141 100644
+--- a/platform/api/task_runner.h
++++ b/platform/api/task_runner.h
+@@ -24,12 +24,13 @@ class TaskRunner {
   public:
  // Seem to get an error using clang when compiling with -fno-exceptions:
  //   error: implicit instantiation of undefined template 'std::__1::packaged_task<void () noexcept>'
--
-+/*
- #if __has_feature(cxx_exceptions)
-   using Task = std::packaged_task<void() noexcept>;
- #else
-   using Task = std::packaged_task<void()>;
- #endif
--
-+*/
+-#if __has_feature(cxx_exceptions)
+-  using Task = std::packaged_task<void() noexcept>;
+-#else
+-  using Task = std::packaged_task<void()>;
+-#endif
++// #if __has_feature(cxx_exceptions)
++//   using Task = std::packaged_task<void() noexcept>;
++// #else
++//   using Task = std::packaged_task<void()>;
++// #endif
+ 
 +  using Task = std::packaged_task<void()>;
    virtual ~TaskRunner() = default;
  

@@ -1,32 +1,11 @@
---- a/art/libartbase/arch/instruction_set.h	2021-09-20 10:56:08.461395523 +0800
-+++ b/art/libartbase/arch/instruction_set.h	2021-09-20 10:54:36.764719721 +0800
-@@ -23,6 +23,40 @@
+diff --git a/src/art/libartbase/arch/instruction_set.h b/src/art/libartbase/arch/instruction_set.h
+index 8d59f1b..cd0c1fc 100644
+--- a/src/art/libartbase/arch/instruction_set.h
++++ b/src/art/libartbase/arch/instruction_set.h
+@@ -24,6 +24,18 @@
  #include "base/enums.h"
  #include "base/macros.h"
  
-+// see aosp/art/build/art.go
-+// We need larger stack overflow guards for ASAN, as the compiled code will hav
-+// larger frame sizes. For simplicity, just use global not-target-specific cflags.
-+// Note: We increase this for both debug and non-debug, as the overflow gap will
-+//       be compiled into managed code. We always preopt (and build core images) with
-+//       the debug version. So make the gap consistent (and adjust for the worst).
-+
-+/*
-+if len(ctx.Config().SanitizeDevice()) > 0 || len(ctx.Config().SanitizeHost()) > 0 {
-+    cflags = append(cflags,
-+        "-DART_STACK_OVERFLOW_GAP_arm=8192",
-+        "-DART_STACK_OVERFLOW_GAP_arm64=16384",
-+        "-DART_STACK_OVERFLOW_GAP_x86=16384",
-+        "-DART_STACK_OVERFLOW_GAP_x86_64=20480")
-+} else {
-+    cflags = append(cflags,
-+        "-DART_STACK_OVERFLOW_GAP_arm=8192",
-+        "-DART_STACK_OVERFLOW_GAP_arm64=8192",
-+        "-DART_STACK_OVERFLOW_GAP_x86=8192",
-+        "-DART_STACK_OVERFLOW_GAP_x86_64=8192")
-+}
-+*/
-+
 +#define ART_STACK_OVERFLOW_GAP_arm 8192
 +#define ART_STACK_OVERFLOW_GAP_arm64 16384
 +#define ART_STACK_OVERFLOW_GAP_riscv64 16384
