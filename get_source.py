@@ -58,42 +58,16 @@ def download(url, displayname, target):
 
 def download_repo(path, url, tag):
 
-    print("Downloading repo {}".format(path))
+    if os.path.isdir(path):
+        print("Skipping {} as it is already cloned".format(path))
+        return True
 
-    command = "git -c \"versionsort.suffix=-\" ls-remote --tags --sort=\"v:refname\" {} | grep {}^{}".format(
-        url, tag, "{}")
-    proc = subprocess.run(command, shell=True,
-                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    lines = proc.stdout.decode().splitlines()
+    print("Cloning repo {}".format(path))
 
-    if len(lines) != 1:
-        print("More than one tags with name {} present in repo {}".format(tag, url))
-        print()
-        return False
-
-    commit = lines[0].split("\t", maxsplit=2)[0]
-    print("Found commit {} for tag {}".format(commit, tag))
-
-    stamp = "{}/___{}".format(path, path.replace("/", "_"))
-    if os.path.isfile(stamp):
-        f = open(stamp, "r")
-        content = f.read().strip()
-        f.close()
-
-        if content == commit:
-            print(
-                "Skipping {} as it is already downloaded (rm {} to force re-download)".format(path, stamp))
-            print()
-            return True
-
-    tarball = url + "/+archive/{}.tar.gz".format(commit)
-
-    download(tarball, os.path.basename(path), path)
+    command = "git clone -c advice.detachedHead=false {} --branch={} --depth=1 {}".format(url, tag, path)
+    subprocess.run(command.split(), shell=False, check=True)
     print()
-
-    with open(stamp, "wb") as file:
-        file.write(bytes(commit, "utf-8"))
-
+    print()
     return True
 
 
