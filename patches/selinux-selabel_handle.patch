@@ -1,0 +1,70 @@
+diff --git a/src/selinux/libselinux/src/label_db.c b/src/selinux/libselinux/src/label_db.c
+index 3f803037..b06dfd6f 100644
+--- a/src/selinux/libselinux/src/label_db.c
++++ b/src/selinux/libselinux/src/label_db.c
+@@ -15,6 +15,8 @@
+ #include "callbacks.h"
+ #include "label_internal.h"
+ 
++#include "selabel_handle_utils.h"
++
+ /*
+  * Regular database object's security context interface
+  *
+@@ -292,8 +294,9 @@ db_init(const struct selinux_opt *opts, unsigned nopts,
+ 		errno = EINVAL;
+ 		return NULL;
+ 	}
+-	rec->spec_file = strdup(path);
+-	if (!rec->spec_file) {
++
++	selabel_handle_set_rec_file(rec, strdup(path));
++	if (!rec->spec_files[0]) {
+                 free(catalog);
+                 fclose(filp);
+                 return NULL;
+diff --git a/src/selinux/libselinux/src/label_media.c b/src/selinux/libselinux/src/label_media.c
+index 3137c18e..3030c007 100644
+--- a/src/selinux/libselinux/src/label_media.c
++++ b/src/selinux/libselinux/src/label_media.c
+@@ -14,6 +14,8 @@
+ #include "callbacks.h"
+ #include "label_internal.h"
+ 
++#include "selabel_handle_utils.h"
++
+ /*
+  * Internals
+  */
+@@ -100,7 +102,7 @@ static int init(struct selabel_handle *rec, const struct selinux_opt *opts,
+ 		errno = EINVAL;
+ 		goto finish;
+ 	}
+-	rec->spec_file = strdup(path);
++	selabel_handle_set_rec_file(rec, strdup(path));
+ 
+ 	/* 
+ 	 * Perform two passes over the specification file.
+diff --git a/src/selinux/libselinux/src/label_x.c b/src/selinux/libselinux/src/label_x.c
+index e6e8d9f6..8d03f462 100644
+--- a/src/selinux/libselinux/src/label_x.c
++++ b/src/selinux/libselinux/src/label_x.c
+@@ -15,6 +15,8 @@
+ #include "callbacks.h"
+ #include "label_internal.h"
+ 
++#include "selabel_handle_utils.h"
++
+ /*
+  * Internals
+  */
+@@ -127,8 +129,8 @@ static int init(struct selabel_handle *rec, const struct selinux_opt *opts,
+ 		errno = EINVAL;
+ 		goto finish;
+ 	}
+-	rec->spec_file = strdup(path);
+ 
++	selabel_handle_set_rec_file(rec, strdup(path));
+ 	/* 
+ 	 * Perform two passes over the specification file.
+ 	 * The first pass counts the number of specifications and
