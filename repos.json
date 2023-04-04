@@ -134,9 +134,5 @@
     {
         "path": "src/googletest",
         "url": "https://android.googlesource.com/platform/external/googletest"
-    },
-    {
-        "path": "src/libziparchive",
-        "url": "https://android.googlesource.com/platform/system/libziparchive"
     }
 ]
