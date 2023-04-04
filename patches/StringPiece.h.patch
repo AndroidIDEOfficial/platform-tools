@@ -1,7 +1,7 @@
-diff --git a/StringPiece.h b/StringPiece.h
+diff --git a/src/base/libs/androidfw/include/androidfw/StringPiece.h b/src/base/libs/androidfw/include/androidfw/StringPiece.h
 index 921877d..e87d3ee 100644
---- a/StringPiece.h
-+++ b/StringPiece.h
+--- a/src/base/libs/androidfw/include/androidfw/StringPiece.h
++++ b/src/base/libs/androidfw/include/androidfw/StringPiece.h
 @@ -76,6 +76,12 @@ class BasicStringPiece {
    bool operator==(const BasicStringPiece<TChar>& rhs) const;
    bool operator!=(const BasicStringPiece<TChar>& rhs) const;
