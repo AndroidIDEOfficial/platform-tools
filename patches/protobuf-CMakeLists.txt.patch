@@ -1,7 +1,7 @@
-diff --git a/cmake/libprotobuf-lite.cmake b/cmake/libprotobuf-lite.cmake
+diff --git a/src/protobuf/cmake/libprotobuf-lite.cmake b/src/protobuf/cmake/libprotobuf-lite.cmake
 index 83e9703..5041c9e 100644
---- a/cmake/libprotobuf-lite.cmake
-+++ b/cmake/libprotobuf-lite.cmake
+--- a/src/protobuf/cmake/libprotobuf-lite.cmake
++++ b/src/protobuf/cmake/libprotobuf-lite.cmake
 @@ -102,7 +102,7 @@ if(protobuf_LINK_LIBATOMIC)
    target_link_libraries(libprotobuf-lite PRIVATE atomic)
  endif()
@@ -13,8 +13,8 @@ index 83e9703..5041c9e 100644
  if(protobuf_BUILD_SHARED_LIBS)
 diff --git a/cmake/libprotobuf.cmake b/cmake/libprotobuf.cmake
 index 07e4bcf..cb5c4a6 100644
---- a/cmake/libprotobuf.cmake
-+++ b/cmake/libprotobuf.cmake
+--- a/src/protobuf/cmake/libprotobuf.cmake
++++ b/src/protobuf/cmake/libprotobuf.cmake
 @@ -118,7 +118,7 @@ if(protobuf_LINK_LIBATOMIC)
    target_link_libraries(libprotobuf PRIVATE atomic)
  endif()
