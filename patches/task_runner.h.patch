@@ -1,7 +1,7 @@
-diff --git a/platform/api/task_runner.h b/platform/api/task_runner.h
+diff --git a/src/openscreen/platform/api/task_runner.h b/src/openscreen/platform/api/task_runner.h
 index 948eb08..3673141 100644
---- a/platform/api/task_runner.h
-+++ b/platform/api/task_runner.h
+--- a/src/openscreen/platform/api/task_runner.h
++++ b/src/openscreen/platform/api/task_runner.h
 @@ -24,12 +24,13 @@ class TaskRunner {
   public:
  // Seem to get an error using clang when compiling with -fno-exceptions:
