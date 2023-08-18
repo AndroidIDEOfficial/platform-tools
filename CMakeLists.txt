@@ -22,7 +22,7 @@ enable_language(ASM)
 # platform tools version
 # see the patches/misc/platform_tools_version.h
 set(TOOLS_VERSION_MAJOR 34)
-set(TOOLS_VERSION 34.0.1)
+set(TOOLS_VERSION 34.0.4)
 set(_TOOLS_DEF "-D_TOOL_VERSION_MAJOR='\"${TOOLS_VERSION_MAJOR}\"' -D_TOOLS_VERSION='\"${TOOLS_VERSION}\"'")
 
 # set global cflags and cxxflags
