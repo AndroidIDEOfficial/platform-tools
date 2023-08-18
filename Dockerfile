@@ -24,7 +24,7 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
 # Set the URL for downloading Android NDK
-ADD https://dl.google.com/android/repository/android-ndk-r26-beta1-linux.zip /tmp/android-ndk.zip
+ADD https://dl.google.com/android/repository/android-ndk-r26-rc1-linux.zip /tmp/android-ndk.zip
 
 # Download and install Android NDK if it's not in the cache
 RUN unzip /tmp/android-ndk.zip -d /usr/local \
