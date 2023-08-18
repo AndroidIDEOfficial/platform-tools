@@ -52,7 +52,7 @@ add_library(libselinux STATIC
     ${SRC}/selinux/libselinux/src/avc_internal.c
     ${SRC}/selinux/libselinux/src/get_context_list.c
     ${SRC}/selinux/libselinux/src/freecon.c
-    ${SRC}/selinux/libselinux/src/selinux_restorecon.c
+#    ${SRC}/selinux/libselinux/src/selinux_restorecon.c
     ${SRC}/selinux/libselinux/src/stringrep.c
     ${SRC}/selinux/libselinux/src/label_db.c
     ${SRC}/selinux/libselinux/src/avc_sidtab.c
