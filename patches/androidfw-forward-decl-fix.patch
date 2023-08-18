@@ -1,0 +1,45 @@
+diff --git a/src/base/libs/androidfw/AssetManager2.cpp b/src/base/libs/androidfw/AssetManager2.cpp
+index 400829e1..0286b596 100644
+--- a/src/base/libs/androidfw/AssetManager2.cpp
++++ b/src/base/libs/androidfw/AssetManager2.cpp
+@@ -1411,12 +1411,12 @@ Theme::Theme(AssetManager2* asset_manager) : asset_manager_(asset_manager) {
+ 
+ Theme::~Theme() = default;
+ 
+-struct Theme::Entry {
+-  uint32_t attr_res_id;
+-  ApkAssetsCookie cookie;
+-  uint32_t type_spec_flags;
+-  Res_value value;
+-};
++//struct Theme::Entry {
++//  uint32_t attr_res_id;
++//  ApkAssetsCookie cookie;
++//  uint32_t type_spec_flags;
++//  Res_value value;
++//};
+ 
+ namespace {
+ struct ThemeEntryKeyComparer {
+diff --git a/src/base/libs/androidfw/include/androidfw/AssetManager2.h b/src/base/libs/androidfw/include/androidfw/AssetManager2.h
+index 1bde792d..e74a8d28 100644
+--- a/src/base/libs/androidfw/include/androidfw/AssetManager2.h
++++ b/src/base/libs/androidfw/include/androidfw/AssetManager2.h
+@@ -563,7 +563,13 @@ class Theme {
+ 
+   void Dump() const;
+ 
+-  struct Entry;
++  struct Entry {
++    uint32_t attr_res_id;
++    ApkAssetsCookie cookie;
++    uint32_t type_spec_flags;
++    Res_value value;
++  };
++
+  private:
+   DISALLOW_COPY_AND_ASSIGN(Theme);
+ 
+-- 
+2.34.1
+
