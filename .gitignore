@@ -10,7 +10,7 @@ CTestTestfile.cmake
 build
 pack
 
-/src/
+/src*/
 
 **/*.zip
 **/*.apk
