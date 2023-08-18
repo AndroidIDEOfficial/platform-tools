@@ -52,9 +52,12 @@ add_executable(fastboot
     ${SRC}/core/fastboot/fastboot.cpp
     ${SRC}/core/fastboot/fastboot_driver.cpp
     ${SRC}/core/fastboot/fs.cpp
+    ${SRC}/core/fastboot/filesystem.cpp
     ${SRC}/core/fastboot/super_flash_helper.cpp
     ${SRC}/core/fastboot/main.cpp
     ${SRC}/core/fastboot/socket.cpp
+    ${SRC}/core/fastboot/storage.cpp
+    ${SRC}/core/fastboot/task.cpp
     ${SRC}/core/fastboot/tcp.cpp
     ${SRC}/core/fastboot/udp.cpp
     ${SRC}/core/fastboot/usb_linux.cpp
