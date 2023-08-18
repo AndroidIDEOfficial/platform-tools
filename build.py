@@ -41,15 +41,15 @@ def format_time(seconds):
     else:
         return "{}s".format(sec)
 
-def finish(args):
+def finish(args, build_dir):
     cwd = Path(os.getcwd())
     strip = args.ndk + "/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip"
 
-    build_tools_dir = cwd / "{}/bin/build-tools".format(args.build)
+    build_tools_dir = cwd / "{}/bin/build-tools".format(build_dir)
     if not build_tools_dir.exists():
         build_tools_dir.mkdir()
 
-    platform_tools_dir = cwd / "{}/bin/platform-tools".format(args.build)
+    platform_tools_dir = cwd / "{}/bin/platform-tools".format(build_dir)
     if not platform_tools_dir.exists():
         platform_tools_dir.mkdir()
 
@@ -76,9 +76,10 @@ def build(args):
     cmake_toolchain_file = ndk / "build/cmake/android.toolchain.cmake"
     if not cmake_toolchain_file.exists():
         raise ValueError("no such file or directory: {}".format(cmake_toolchain_file))
-        
+
+    build_dir = f"build/android{args.api}-{args.abi}"
     command = ["cmake", "-GNinja", 
-        "-B {}".format(args.build),
+        "-B {}".format(build_dir),
         "-DANDROID_NDK={}".format(args.ndk),
         "-DCMAKE_TOOLCHAIN_FILE={}".format(cmake_toolchain_file),
         "-DANDROID_PLATFORM=android-{}".format(args.api),
@@ -99,13 +100,13 @@ def build(args):
     start = time.time()
     if result.returncode == 0:
         if args.target == "all":
-            result = subprocess.run(["ninja", "-C", args.build, "-j {}".format(args.job)])
+            result = subprocess.run(["ninja", "-C", build_dir, "-j {}".format(args.job)])
         else:
-            result = subprocess.run(["ninja", "-C", args.build, args.target, "-j {}".format(args.job)])
+            result = subprocess.run(["ninja", "-C", build_dir, args.target, "-j {}".format(args.job)])
 
     if result.returncode == 0:
         # build finish
-        finish(args)
+        finish(args, build_dir)
         end = time.time()
         print("\033[1;32mbuild success cost time: {}\033[0m".format(format_time(end - start)))
 
@@ -119,8 +120,6 @@ def main():
       required=True, help="build for the specified architecture")
     
     parser.add_argument("--api", default=30, help="set android platform level, min api is 30")
-
-    parser.add_argument("--build", default="build", help="the build directory")
 
     parser.add_argument("--job", default=16, help="run N jobs in parallel, default is 16")
     
