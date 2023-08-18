@@ -19,15 +19,18 @@ project(sdk-tools)
 
 enable_language(ASM)
 
+# platform tools version
+# see the patches/misc/platform_tools_version.h
+set(TOOLS_VERSION_MAJOR 34)
+set(TOOLS_VERSION 34.0.1)
+set(_TOOLS_DEF "-D_TOOL_VERSION_MAJOR='\"${TOOLS_VERSION_MAJOR}\"' -D_TOOLS_VERSION='\"${TOOLS_VERSION}\"'")
+
 # set global cflags and cxxflags
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu++2a")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu11 ${_TOOLS_DEF}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu++2a ${_TOOLS_DEF}")
 # static link
 set(CMAKE_EXE_LINKER_FLAGS "-static")
 
-# platform tools version
-# see the patches/other/platform_tools_version.h
-set(TOOLS_VERSION 34.0.0)
 set(SRC ${PROJECT_SOURCE_DIR}/src)
 
 # 64-bit off_t for lseek.
