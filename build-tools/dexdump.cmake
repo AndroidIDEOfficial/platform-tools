@@ -21,6 +21,7 @@ set(INCLUDES
     ${SRC}/libbase/include
     ${SRC}/logging/liblog/include
     ${SRC}/libziparchive/include
+    ${SRC}/fmtlib/include
     )
 
 add_library(libartbase STATIC
