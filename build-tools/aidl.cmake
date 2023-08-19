@@ -50,6 +50,7 @@ add_executable(aidl
     ${SRC}/aidl/aidl_language_l.ll
     ${SRC}/aidl/aidl_language_y.yy
     ${SRC}/aidl/aidl_language.cpp
+    ${SRC}/aidl/aidl_to_common.cpp
     ${SRC}/aidl/aidl_to_cpp_common.cpp
     ${SRC}/aidl/aidl_to_cpp.cpp
     ${SRC}/aidl/aidl_to_java.cpp
