@@ -25,6 +25,23 @@ set(TOOLS_VERSION_MAJOR 34)
 set(TOOLS_VERSION 34.0.4)
 set(_TOOLS_DEF "-D_TOOL_VERSION_MAJOR='\"${TOOLS_VERSION_MAJOR}\"' -D_TOOLS_VERSION='\"${TOOLS_VERSION}\"'")
 
+# For src/art/libartbase/base/mem_map.cc
+set(LIBARTBASE_DEF "-DART_BASE_ADDRESS=0x70000000")
+
+# For src/art/libartbase/arch/instruction_set.h
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_STACK_OVERFLOW_GAP_arm=8192")
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_STACK_OVERFLOW_GAP_arm64=16384")
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_STACK_OVERFLOW_GAP_riscv64=16384")
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_STACK_OVERFLOW_GAP_x86=16384")
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_STACK_OVERFLOW_GAP_x86_64=20480")
+
+# For src/art/libartbase/arch/instruction_set.h
+# see aosp/art/build/art.go
+# default frame size limit: 1736
+# device limit: 7400
+# host limit: 6400
+set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_FRAME_SIZE_LIMIT=6400")
+
 # set global cflags and cxxflags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu11 ${_TOOLS_DEF}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu++2a ${_TOOLS_DEF}")
