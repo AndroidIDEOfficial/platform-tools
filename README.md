@@ -8,7 +8,13 @@ Follow the steps below to build the tools.
 
 ## Before we start
 
-You need `Android NDK r26` in order to build this project. Earlier versions may not work.
+You need `Android NDK r26` in order to build this project. Earlier versions may not work. Also, you'll need to install the following packages if you're building directly
+on your local machine, instead of using the `Dockerfile`` :
+
+```bash
+sudo apt-get update
+sudo apt-get install -y python3 python3-pip git golang build-essential cmake ninja-build bison flex wget nano zip unzip tar
+```
 
 ## Get the source
 
