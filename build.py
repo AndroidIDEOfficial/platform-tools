@@ -77,7 +77,7 @@ def build(args):
     if not cmake_toolchain_file.exists():
         raise ValueError("no such file or directory: {}".format(cmake_toolchain_file))
 
-    build_dir = Path(os.path.dirname(os.path.realpath(os.path.__file__))) / f"build/android{args.api}-{args.abi}"
+    build_dir = f"build/android{args.api}-{args.abi}"
     command = ["cmake", "-GNinja", 
         "-B {}".format(build_dir),
         "-DANDROID_NDK={}".format(args.ndk),
