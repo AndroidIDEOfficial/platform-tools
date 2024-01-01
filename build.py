@@ -90,6 +90,10 @@ def build(args):
         "-DABSL_PROPAGATE_CXX_STD=ON",
         "-DANDROID_ARM_NEON=ON",
         "-DCMAKE_BUILD_TYPE=Release"]
+
+    if not Path(build_dir).exists():
+        print(f"'{build_dir}' does not exist! Creating directory...")
+        os.makedirs(build_dir)
     
     if args.protoc is not None:
         if not Path(args.protoc).exists():
