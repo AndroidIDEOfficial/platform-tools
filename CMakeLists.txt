@@ -45,8 +45,9 @@ set(LIBARTBASE_DEF "${LIBARTBASE_DEF} -DART_FRAME_SIZE_LIMIT=6400")
 # set global cflags and cxxflags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu11 ${_TOOLS_DEF}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fPIC -Wno-attributes -std=gnu++2a ${_TOOLS_DEF}")
+
 # static link
-set(CMAKE_EXE_LINKER_FLAGS "-static")
+# set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 set(SRC ${PROJECT_SOURCE_DIR}/src)
 
