@@ -77,7 +77,7 @@ def build(args):
     if not cmake_toolchain_file.exists():
         raise ValueError("no such file or directory: {}".format(cmake_toolchain_file))
 
-    build_dir = f"build/android{args.api}-{args.abi}"
+    build_dir = f"{args.build}/android{args.api}-{args.abi}"
     command = ["cmake", "-GNinja", 
         "-B {}".format(build_dir),
         "-DANDROID_NDK={}".format(args.ndk),
@@ -124,6 +124,8 @@ def main():
       required=True, help="build for the specified architecture")
     
     parser.add_argument("--api", default=30, help="set android platform level, min api is 30")
+
+    parser.add_argument('--build', default='build', help='the build directory')
 
     parser.add_argument("--job", default=16, help="run N jobs in parallel, default is 16")
     
