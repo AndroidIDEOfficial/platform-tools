@@ -23,6 +23,12 @@ import argparse
 import subprocess
 from pathlib import Path
 
+supported_abis = ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"]
+
+def check_abi_supported(abi: str):
+    if not abi in supported_abis :
+        raise ValueError(f"ABI {abi} is not supported!")
+
 def format_time(seconds):
     minute, sec = divmod(seconds, 60)
     hour, minute = divmod(minute, 60)
@@ -72,19 +78,40 @@ def finish(args, build_dir):
 
 
 def build(args):
+
+    abis: str = args.abi
+
+    if ',' in abis:
+
+        # Fail early, in case of unsupported ABIs
+        for abi in abis.split(','):
+            check_abi_supported(abi.strip())
+
+        # Build for each ABI
+        for abi in abis.split(','):
+            buildFor(abi.strip(), args)
+
+        return
+    
+    buildFor(abis.strip(), args)
+
+def buildFor(abi: str, args):
+    
+    print(f"Building for ABI: {abi}...")
+
     ndk = Path(args.ndk)
     cmake_toolchain_file = ndk / "build/cmake/android.toolchain.cmake"
     if not cmake_toolchain_file.exists():
         raise ValueError("no such file or directory: {}".format(cmake_toolchain_file))
-    
-    build_dir = f"{args.build}/android{args.api}-{args.abi}"
+
+    build_dir = f"{args.build}/android{args.api}-{abi}"
     command = [args.cmake, "-GNinja", 
         "-B {}".format(build_dir),
         "-DANDROID_NDK={}".format(args.ndk),
         "-DCMAKE_TOOLCHAIN_FILE={}".format(cmake_toolchain_file),
         "-DANDROID_PLATFORM=android-{}".format(args.api),
-        "-DCMAKE_ANDROID_ARCH_ABI={}".format(args.abi),
-        "-DANDROID_ABI={}".format(args.abi),
+        "-DCMAKE_ANDROID_ARCH_ABI={}".format(abi),
+        "-DANDROID_ABI={}".format(abi),
         "-DCMAKE_SYSTEM_NAME=Android",
         "-Dprotobuf_BUILD_TESTS=OFF",
         "-DABSL_PROPAGATE_CXX_STD=ON",
@@ -118,15 +145,14 @@ def build(args):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--ndk", required=True, help="set the ndk toolchain path")
-    parser.add_argument("--abi", choices=["armeabi-v7a", "arm64-v8a", "x86", "x86_64"], 
-      required=True, help="build for the specified architecture")
-    parser.add_argument("--api", default=30, help="set android platform level, min api is 30")
-    parser.add_argument('--build', default='build', help='the build directory')
-    parser.add_argument("--job", default=16, help="run N jobs in parallel, default is 16")
-    parser.add_argument("--target", default="all", help="build specified targets such as aapt2 adb fastboot, etc")
-    parser.add_argument("--protoc", help="set the host protoc path")
-    parser.add_argument("--cmake", default="cmake", help="set the host cmake path")
+    parser.add_argument("--ndk", required=True, help="Set the NDK toolchain path.")
+    parser.add_argument("--abi", required=True, help="Comma separated list of CPU ABIs to build for.")
+    parser.add_argument("--api", default=30, help="Set android platform level, minimum API is 30.")
+    parser.add_argument('--build', default='build', help='Set the build directory.')
+    parser.add_argument("--job", default=16, help="Run N jobs in parallel, default is 16.")
+    parser.add_argument("--target", default="all", help="Build specified targets such as aapt2, adb, fastboot, etc.")
+    parser.add_argument("--protoc", help="Set the host protoc (protobuf compiler) path.")
+    parser.add_argument("--cmake", default="cmake", help="Set the host `cmake` binary path.")
     
     args = parser.parse_args()
 
